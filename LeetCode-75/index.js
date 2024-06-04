@@ -136,3 +136,77 @@
 // };
 
 // console.log(reverseVowels("leetcode"));
+
+// var reverseWords = function (s) {
+//   const words = s.split(" ").flatMap((s) => (s ? [s.trim()] : []));
+//   return words.reverse().join(" ");
+// };
+// console.log(reverseWords("the sky is blue"));
+
+// 6. Reverse Words in a String
+// var reverseWords = function (s) {
+//   const words = s.split(" ");
+//   const newWords = [];
+
+//   for (let i = words.length - 1; i >= 0; i--) {
+//     const word = words[i];
+//     if (word) newWords.push(word);
+//   }
+
+//   return newWords.join(" ");
+// };
+
+// console.log(reverseWords("the sky is blue"));
+// console.log(reverseWords("  hello world  "));
+
+// 7. Product of Array Except Self
+// var productExceptSelf = function (nums) {
+//   const rightProducts = [];
+//   const leftProducts = [];
+//   const productsExceptSelf = [];
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const num = nums[i];
+//     const prevProduct = rightProducts[i - 1];
+//     const product = prevProduct === undefined ? num : num * prevProduct;
+//     rightProducts.push(product);
+//   }
+
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     const num = nums[i];
+//     const nextProduct = leftProducts[0];
+//     const product = nextProduct === undefined ? num : num * nextProduct;
+//     leftProducts.unshift(product);
+//   }
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const prevProds = rightProducts[i - 1],
+//       nextProds = leftProducts[i + 1];
+
+//     if (prevProds === undefined) productsExceptSelf.push(leftProducts[1]);
+//     else if (nextProds === undefined) productsExceptSelf.push(prevProds);
+//     else productsExceptSelf.push(prevProds * nextProds);
+//   }
+
+//   return productsExceptSelf;
+// };
+
+// Optimized Approach
+var productExceptSelf = function (nums) {
+  const products = new Array(nums.length).fill(1);
+
+  for (let i = 1; i < nums.length; i++) {
+    products[i] = products[i - 1] * nums[i - 1];
+  }
+
+  let rightProduct = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    products[i] *= rightProduct;
+    rightProduct *= nums[i];
+  }
+
+  return products;
+};
+
+console.log(productExceptSelf([1, 2, 3, 4])); // [24,12,8,6]
+// console.log(productExceptSelf([4, 3, 2, 1, 2]));

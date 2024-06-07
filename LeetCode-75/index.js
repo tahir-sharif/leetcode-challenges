@@ -192,21 +192,41 @@
 // };
 
 // Optimized Approach
-var productExceptSelf = function (nums) {
-  const products = new Array(nums.length).fill(1);
+// var productExceptSelf = function (nums) {
+//   const products = new Array(nums.length).fill(1);
 
-  for (let i = 1; i < nums.length; i++) {
-    products[i] = products[i - 1] * nums[i - 1];
-  }
+//   for (let i = 1; i < nums.length; i++) {
+//     products[i] = products[i - 1] * nums[i - 1];
+//   }
 
-  let rightProduct = 1;
-  for (let i = nums.length - 1; i >= 0; i--) {
-    products[i] *= rightProduct;
-    rightProduct *= nums[i];
-  }
+//   let rightProduct = 1;
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     products[i] *= rightProduct;
+//     rightProduct *= nums[i];
+//   }
 
-  return products;
-};
+//   return products;
+// };
 
-console.log(productExceptSelf([1, 2, 3, 4])); // [24,12,8,6]
+// console.log(productExceptSelf([1, 2, 3, 4])); // [24,12,8,6]
 // console.log(productExceptSelf([4, 3, 2, 1, 2]));
+
+// 8. Increasing Triplet Subsequence
+// var increasingTriplet = function (nums) {
+//   let left = Number.MAX_SAFE_INTEGER;
+//   let mid = Number.MAX_SAFE_INTEGER;
+
+//   for (const num of nums) {
+//     if (left > num) {
+//       left = num;
+//     } else if (mid > num) {
+//       mid = num;
+//     } else {
+//       return true;
+//     }
+//   }
+
+//   return false;
+// };
+
+// console.log(increasingTriplet([2, 1, 5, 0, 4, 6]));

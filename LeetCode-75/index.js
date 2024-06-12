@@ -242,3 +242,68 @@
 //     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 //   ])
 // );
+
+// 9. String Compression
+// This sol. has been rejected because we have to update input array also.
+// var compress = function (chars) {
+//   if (chars.length === 1) return chars;
+
+//   let compressed = [];
+//   let prevChar = chars[0];
+//   let currentCharCount = 0;
+
+//   for (let i = 0; i < chars.length; i++) {
+//     const char = chars[i];
+//     const isNotLast = i !== chars.length - 1;
+
+//     if (prevChar === char) {
+//       currentCharCount++;
+//       if (isNotLast) continue;
+//     }
+
+//     compressed.push(prevChar, currentCharCount);
+//     currentCharCount = 1;
+
+//     prevChar = char;
+//   }
+
+//   return compressed.length;
+// };
+
+// var compress = function (chars = []) {
+//   if (chars.length === 1) return 1;
+
+//   let left = 0;
+//   let leftFast = 1;
+//   let leftChar = chars[left];
+//   let leftFastChar = chars[leftFast];
+
+//   while (left < chars.length) {
+//     while (leftChar === leftFastChar) {
+//       leftFast++;
+//       leftFastChar = chars[leftFast];
+//     }
+
+//     const startIndex = left + 1;
+//     const count = leftFast - left;
+//     const countStr = count.toString().split("");
+
+//     if (count > 1) {
+//       chars.splice(startIndex, count - 1, ...countStr);
+//       leftFast = startIndex + countStr.length;
+//     }
+
+//     left = leftFast;
+//     leftChar = chars[left];
+//   }
+
+//   console.log(chars);
+//   return chars.length;
+// };
+
+// console.log(compress(["a", "a", "b", "b", "c", "c", "c", "c", "e", "e"]));
+// console.log(compress(["a", "a", "a", "b", "b", "a", "a"]));
+// console.log(compress(["a", "a", "a", "b", "b", "a", "a"]));
+// console.log(
+//   compress(["a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"])
+// );

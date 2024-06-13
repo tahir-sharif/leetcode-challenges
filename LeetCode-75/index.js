@@ -307,3 +307,34 @@
 // console.log(
 //   compress(["a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"])
 // );
+
+// var moveZeroes = function (nums = []) {
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     if (nums[i] === 0) nums.push(...nums.splice(i, 1));
+//   }
+
+//   return nums;
+// };
+
+// 10. Move Zeros.
+// var moveZeroes = function (nums) {
+//   let left = 0;
+//   let right = 1;
+//   while (right < nums.length) {
+//     console.log({ left, right });
+//     if (nums[left] !== 0) {
+//       left++;
+//       right++;
+//     } else if (nums[right] === 0) {
+//       right++;
+//     } else {
+//       let temp = nums[right];
+//       nums[right] = nums[left];
+//       nums[left] = temp;
+//     }
+
+//     console.log(nums);
+//   }
+// };
+
+// console.log(moveZeroes([0, 1, 0, 3, 12]));

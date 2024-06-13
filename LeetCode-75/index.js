@@ -338,3 +338,26 @@
 // };
 
 // console.log(moveZeroes([0, 1, 0, 3, 12]));
+
+// 11. Is Subsequence
+
+// var isSubsequence = function (s = "", t = "") {
+//   const sArr = s.split("");
+
+//   for (let i = 0; i < t.length; i++) {
+//     if (sArr[0] === t[i]) sArr.shift();
+//   }
+
+//   return sArr.length === 0;
+// };
+// var isSubsequence = function (s = "", t = "") {
+//   let sIn = 0;
+
+//   for (let i = 0; i < t.length; i++) {
+//     if (s[sIn] === t[i]) sIn++;
+//   }
+
+//   return sIn === s.length;
+// };
+
+// console.log(isSubsequence("abc", "ahbgdc"));

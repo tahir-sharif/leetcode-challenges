@@ -361,3 +361,180 @@
 // };
 
 // console.log(isSubsequence("abc", "ahbgdc"));
+
+// 11. Container With Most Water
+
+// var maxArea = function (height = []) {
+//   let left = 0;
+//   let right = 1;
+//   let maxArea = 0;
+
+//   while (right < height.length) {
+//     let leftNum = height[left];
+//     let rightNum = height[right];
+
+//     if (rightNum > leftNum) {
+//       left = right;
+//       leftNum = height[left];
+//     }
+
+//     const newArea = Math.min(leftNum, rightNum) * (right - left);
+
+//     if (newArea > maxArea) {
+//       maxArea = newArea;
+//     }
+
+//     right++;
+//   }
+
+//   return maxArea;
+// };
+
+// console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+// console.log(maxArea([1, 2, 1]));
+
+// class Wallet {
+//   constructor() {
+//     this.totalPoints = 0;
+//     this.expirablePoints = [];
+//     this.currentMonth = new Date().getMonth();
+//   }
+
+//   // Method to add non-expiring points to the wallet
+//   addPoints(points) {
+//     this.totalPoints += points;
+//     console.log(`Added ${points} points. Total points: ${this.totalPoints}`);
+//   }
+
+//   // Method to add expiring points
+//   addExpirablePoints(points) {
+//     const expiryDate = new Date();
+//     expiryDate.setDate(expiryDate.getDate() + 60); // Set expiration date 60 days from now
+//     this.expirablePoints.push({ points, expiryDate });
+//     this.totalPoints += points;
+//     console.log(
+//       `Added ${points} expirable points. Total points: ${
+//         this.totalPoints
+//       }. Expiry Date: ${expiryDate.toLocaleDateString()}`
+//     );
+//   }
+
+//   // Method to spend points
+//   spendPoints(points) {
+//     if (points > this.totalPoints) {
+//       console.log("Insufficient points available.");
+//       return false;
+//     }
+//     this.totalPoints -= points;
+//     console.log(
+//       `Spent ${points} points. Remaining total points: ${this.totalPoints}`
+//     );
+
+//     // Deduct from expirable points first
+//     let remainingToDeduct = points;
+//     console.log("expirablePoints =>", this.expirablePoints);
+//     for (
+//       let i = 0;
+//       i < this.expirablePoints.length && remainingToDeduct > 0;
+//       i++
+//     ) {
+//       let deduction = Math.min(
+//         remainingToDeduct,
+//         this.expirablePoints[i].points
+//       );
+//       this.expirablePoints[i].points -= deduction;
+//       remainingToDeduct -= deduction;
+//     }
+
+//     // Clean up expirable points array
+//     this.expirablePoints = this.expirablePoints.filter(
+//       (point) => point.points > 0
+//     );
+
+//     console.log("expirablePoints =>", this.expirablePoints);
+
+//     return true;
+//   }
+
+//   // Method to check and expire points
+//   expirePoints() {
+//     const now = new Date();
+//     let expiredPoints = 0;
+//     this.expirablePoints.forEach((point) => {
+//       if (point.expiryDate <= now) {
+//         expiredPoints += point.points;
+//       }
+//     });
+//     if (expiredPoints > 0) {
+//       this.totalPoints -= expiredPoints;
+//       this.expirablePoints = this.expirablePoints.filter(
+//         (point) => point.expiryDate > now
+//       );
+//       console.log(
+//         `Expired ${expiredPoints} points. Remaining total points: ${this.totalPoints}`
+//       );
+//     }
+//   }
+
+//   // Method to add new expirable points at the start of each month
+//   addMonthlyExpirablePoints(points) {
+//     if (new Date().getMonth() !== this.currentMonth) {
+//       this.currentMonth = new Date().getMonth();
+//       this.addExpirablePoints(points);
+//     } else {
+//       console.log("Expirable points for the month already added.");
+//     }
+//   }
+// }
+
+// // Example usage
+// const wallet = new Wallet();
+// wallet.addPoints(100);
+// wallet.addExpirablePoints(50);
+// wallet.spendPoints(70); // Tries to spend 70 points, using expirable points first
+// wallet.expirePoints(); // Check for and remove expired points
+// wallet.addMonthlyExpirablePoints(40);
+
+class MyPromise {
+  constructor(fn) {
+    fn(this.#resolve.bind(this), this.#reject.bind(this));
+  }
+  #state = "pending";
+  #onFulfilledCallbacks = [];
+  #onRejectCallbacks = [];
+  #resolve(val) {
+    console.log("resolved", this.#onFulfilledCallbacks);
+    const self = this;
+
+    queueMicrotask(function () {
+      self.#onFulfilledCallbacks.forEach((cb) => {
+        cb(val);
+      });
+    });
+  }
+  #reject() {}
+  then(onFullFilled) {
+    const callback =
+      typeof onFullFilled === "function" ? onFullFilled : () => onFullFilled;
+    this.#onFulfilledCallbacks.push(callback);
+  }
+}
+
+const checkPromise = async () => {
+  try {
+    console.log("init 1");
+
+    const promise = new MyPromise((res) => {
+      // setTimeout(() => {
+      res("okkkay");
+      // }, 0);
+    });
+
+    await promise;
+    console.log("res 2", res);
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+checkPromise();

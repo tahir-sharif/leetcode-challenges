@@ -495,46 +495,88 @@
 // wallet.expirePoints(); // Check for and remove expired points
 // wallet.addMonthlyExpirablePoints(40);
 
-class MyPromise {
-  constructor(fn) {
-    fn(this.#resolve.bind(this), this.#reject.bind(this));
-  }
-  #state = "pending";
-  #onFulfilledCallbacks = [];
-  #onRejectCallbacks = [];
-  #resolve(val) {
-    console.log("resolved", this.#onFulfilledCallbacks);
-    const self = this;
+// Implemented Custom Promise 
+// class MyPromise {
+//   constructor(fn) {
+//     fn(this.#resolve.bind(this), this.#reject.bind(this));
+//   }
+//   #value;
+//   #state = "pending";
+//   #onFulfilledCallbacks = [];
+//   #onRejectCallbacks = [];
 
-    queueMicrotask(function () {
-      self.#onFulfilledCallbacks.forEach((cb) => {
-        cb(val);
-      });
-    });
-  }
-  #reject() {}
-  then(onFullFilled) {
-    const callback =
-      typeof onFullFilled === "function" ? onFullFilled : () => onFullFilled;
-    this.#onFulfilledCallbacks.push(callback);
-  }
-}
+//   #resolve(val) {
+//     this.#state = "fulfilled";
+//     this.#value = val;
+//     this.#onFulfilledCallbacks.forEach((cb) => {
+//       this.#value = cb(this.#value);
+//     });
+//   }
+//   #reject(reason) {
+//     this.#state = "rejected";
+//     this.#value = reason;
+//     this.#onRejectCallbacks.forEach((cb) => {
+//       this.#value = cb(this.#value);
+//     });
 
-const checkPromise = async () => {
-  try {
-    console.log("init 1");
+//     return this.#value;
+//   }
+//   then(onFullFilled) {
+//     try {
+//       const isFn = typeof onFullFilled === "function";
+//       const callback = isFn ? onFullFilled : () => onFullFilled;
+//       this.#onFulfilledCallbacks.push(callback);
 
-    const promise = new MyPromise((res) => {
-      // setTimeout(() => {
-      res("okkkay");
-      // }, 0);
-    });
+//       if (isFn) {
+//         return new MyPromise((res, rej) => {
+//           this.#onFulfilledCallbacks.push(res);
+//           this.#onRejectCallbacks.push(rej);
+//         });
+//       }
+//     } catch (error) {
+//       this.#reject(error);
+//     }
+//   }
+//   catch(onReject) {
+//     const callback = typeof onReject === "function" ? onReject : () => onReject;
+//     this.#onRejectCallbacks.push(callback);
 
-    await promise;
-    console.log("res 2", res);
-  } catch (error) {
-    console.log("error", error);
-  }
-};
+//     return new MyPromise((res, rej) => {
+//       this.#onFulfilledCallbacks.push(res);
+//       this.#onRejectCallbacks.push(rej);
+//     });
+//   }
+// }
 
-checkPromise();
+// const checkPromise = async () => {
+//   try {
+//     console.log("promise started");
+
+//     const promise = new MyPromise((res, rej) => {
+//       setTimeout(() => {
+//         res("okkkay");
+//       }, 1500);
+//     })
+//       .then(() => {
+//         console.log("yesss!");
+//       })
+//       .catch((res) => {
+//         console.log("catch 1", res);
+//       })
+//       .catch((res) => {
+//         console.log("catch 2", res);
+//       })
+//       .catch((res) => {
+//         console.log("catch 3", res);
+//       });
+
+//     const res = await promise;
+//     console.log("res after await", res);
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+
+//   console.log("ended");
+// };
+
+// checkPromise();

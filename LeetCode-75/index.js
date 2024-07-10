@@ -495,7 +495,7 @@
 // wallet.expirePoints(); // Check for and remove expired points
 // wallet.addMonthlyExpirablePoints(40);
 
-// Implemented Custom Promise 
+// Implemented Custom Promise
 // class MyPromise {
 //   constructor(fn) {
 //     fn(this.#resolve.bind(this), this.#reject.bind(this));
@@ -580,3 +580,27 @@
 // };
 
 // checkPromise();
+
+// 1598. Crawler Log Folder
+/**
+ * @param {string[]} logs
+ * @return {number}
+ */
+// var minOperations = function (logs = []) {
+//   const stack = [];
+
+//   for (let i = 0; i < logs.length; i++) {
+//     const path = logs[i];
+
+//     if (path === "./") continue;
+
+//     if (path === "../") stack.pop();
+//     else stack.push(path);
+//   }
+
+//   return stack.length;
+// };
+
+// console.log(minOperations(["d1/", "d2/", "../", "d21/", "./"]));
+// console.log(minOperations(["d1/", "d2/", "./", "d3/", "../", "d31/"]));
+// console.log(minOperations(["./", "../", "./"]));
